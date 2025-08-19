@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <header class="site-header">
+    </header>
+    <div class="container">
+        <div class="header">
+            <div class="header-main">
+                <h1>Universal Downloader</h1>
+            </div>
+            <div class="header-controls">
+                <span id="themeLabel" class="theme-label"></span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        <form id="dlForm">
+            <div class="form-group">
+                <label for="mediaUrl">Enter URL:</label>
+                <input type="text" id="mediaUrl" name="mediaUrl" required placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+            <div class="options-grid">
+                <div class="form-group">
+                    <label for="downloadType">Download Type:</label>
+                    <select id="downloadType" name="downloadType">
+                        <option value="video" selected>Video</option>
+                        <option value="audio">Audio</option>
+                    </select>
+                </div>
+                <div id="video-format-option" class="form-group">
+                    <label for="videoFormat">Video Format:</label>
+                    <select id="videoFormat" name="videoFormat">
+                        <option value="mp4" selected>MP4</option>
+                    </select>
+                </div>
+                <div id="audio-options" class="form-group" style="display:none;">
+                    <label for="audioFormat">Audio Format:</label>
+                    <select id="audioFormat" name="audioFormat">
+                        <option value="mp3">MP3 (Best Compression)</option>
+                        <option value="m4a">M4A (Good Quality)</option>
+                        <option value="opus">Opus (Best Quality/Compression)</option>
+                        <option value="ogg">OGG (Balanced Quality/Compression)</option>
+                        <option value="flac">FLAC (Compressed Lossless)</option>
+                        <option value="wav">WAV (Fully Lossless)</option>
+                    </select>
+                    <div id="wav-warning" style="display:none;">Warning: WAV format does not support embedded thumbnails.</div>
+                </div>
+            </div>
+            <div id="video-options">
+                 <div class="form-group">
+                    <label for="resolution">Resolution:</label>
+                    <select id="resolution" name="resolution">
+                        <option value="2160">4K</option>
+                        <option value="1440">2K</option>
+                        <option value="1080" selected>1080p</option>
+                        <option value="720">720p</option>
+                        <option value="480">480p</option>
+                        <option value="360">360p</option>
+                        <option value="240">240p</option>
+                        <option value="144">144p</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="highest_fps">Highest FPS:</label>
+                    <select id="highest_fps" name="highest_fps">
+                        <option value="yes">Yes</option>
+                        <option value="no">No (limit to 30fps)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="toggle-group">
+                <label for="includeSubtitles">Include Subtitles/Captions (if available)</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="includeSubtitles" name="includeSubtitles">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="submitBtn">Start Download</button>
+                <p class="rate-limit-notice">If a playlist is over 50 videos it might take a little longer to download each video to avoid Youtubes Rate limiting</p>
+            </div>
+        </form>
+        <div id="status"></div>
+            </a>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+</html>
