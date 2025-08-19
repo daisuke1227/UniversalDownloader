@@ -38,3 +38,6 @@ node app.js
 
 Your all done yayayayaya yeah idk when im open sourcing this >~<
  
+## Add your own CSS for this
+
+yeah im not giving a full copy of my code :3 but now since its open source i guess its uh yeah
