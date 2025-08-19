@@ -50,7 +50,7 @@ app.get('/credits', (req, res) => {
 
 const getCookiesArgs = (url) => {
   const isVimeo = /vimeo/i.test(url);
-  const cookiesPath = isVimeo ? VIMEO_COOKIES_PATH : COOKIES_PATH;
+  const cookiesPath = isVimeo ? VIMEO_COOKIES_PATH : YOUTUBE_COOKIES_PATH;
   return fs.existsSync(cookiesPath) ? ['--cookies', cookiesPath] : [];
 };
 
@@ -117,12 +117,11 @@ const downloadSingleItem = async (job, url, options, outTemplate) => {
   const isVideo = format === 'mp4';
   const resInt = resolution ? parseInt(resolution, 10) : null;
   let formatString = '';
+
   if (isVideo) {
-    let videoSelector = `bestvideo[height<=?${resInt}]`;
-    if (highest_fps === 'no') {
-      videoSelector += '[fps<=30]';
-    }
-    formatString = `${videoSelector}+bestaudio/best[height<=?${resInt}]/best`;
+    const heightFilter = resInt ? `[height<=${resInt}]` : '';
+    const fpsFilter = highest_fps === 'no' ? '[fps<=30]' : '';
+    formatString = `bestvideo[vcodec^=avc]${heightFilter}${fpsFilter}+bestaudio[ext=m4a]/best[ext=mp4]${heightFilter}${fpsFilter}/best`;
   } else {
     formatString = 'bestaudio/best';
   }
@@ -152,14 +151,8 @@ const downloadSingleItem = async (job, url, options, outTemplate) => {
     '-f', formatString,
     '--match-filter', "live_status != 'is_live'",
     ...(isVideo
-      ? ['--merge-output-format', 'mp4', '--postprocessor-args', 'Merger:-c:a aac']
-      : (() => {
-          const audioArgs = ['-x', '--audio-format', audioFormat, '--audio-quality', '0'];
-          if (audioFormat === 'm4a') {
-            audioArgs.push('--postprocessor-args', 'FFmpegExtractAudio:-c:a aac');
-          }
-          return audioArgs;
-        })()),
+      ? ['--merge-output-format', 'mp4']
+      : ['-x', '--audio-format', audioFormat, '--audio-quality', '0']),
     ...getCookiesArgs(url),
     url,
   ];
@@ -186,12 +179,11 @@ const handlePlaylistDownload = async (job, url, entries, playlistTitle, options)
   const isVideo = format === 'mp4';
   const resInt = resolution ? parseInt(resolution, 10) : null;
   let formatString = '';
+
   if (isVideo) {
-    let videoSelector = `bestvideo[height<=?${resInt}]`;
-    if (highest_fps === 'no') {
-      videoSelector += '[fps<=30]';
-    }
-    formatString = `${videoSelector}+bestaudio/best[height<=?${resInt}]/best`;
+    const heightFilter = resInt ? `[height<=${resInt}]` : '';
+    const fpsFilter = highest_fps === 'no' ? '[fps<=30]' : '';
+    formatString = `bestvideo[vcodec^=avc]${heightFilter}${fpsFilter}+bestaudio[ext=m4a]/best[ext=mp4]${heightFilter}${fpsFilter}/best`;
   } else {
     formatString = 'bestaudio/best';
   }
@@ -231,14 +223,8 @@ const handlePlaylistDownload = async (job, url, entries, playlistTitle, options)
     '-f', formatString,
     '--match-filter', "live_status != 'is_live'",
     ...(isVideo
-      ? ['--merge-output-format', 'mp4', '--postprocessor-args', 'Merger:-c:a aac']
-      : (() => {
-          const audioArgs = ['-x', '--audio-format', audioFormat, '--audio-quality', '0'];
-          if (audioFormat === 'm4a') {
-            audioArgs.push('--postprocessor-args', 'FFmpegExtractAudio:-c:a aac');
-          }
-          return audioArgs;
-        })()),
+      ? ['--merge-output-format', 'mp4']
+      : ['-x', '--audio-format', audioFormat, '--audio-quality', '0']),
     ...getCookiesArgs(url),
     ...entries.map(entry => entry.url),
   ];
