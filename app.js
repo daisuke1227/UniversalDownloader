@@ -13,7 +13,7 @@ const sanitize = require('sanitize-filename');
 const PORT = process.env.PORT || 3000;
 const DOWNLOAD_ROOT = path.resolve(__dirname, process.env.DOWNLOAD_ROOT);
 const UPLOAD_ROOT = path.resolve(__dirname, process.env.UPLOAD_ROOT);
-const COOKIES_PATH = path.resolve(__dirname, process.env.COOKIES_PATH);
+const YOUTUBE_COOKIES_PATH = path.resolve(__dirname, process.env.YOUTUBE_COOKIES_PATH);
 const VIMEO_COOKIES_PATH = path.resolve(__dirname, process.env.VIMEO_COOKIES_PATH);
 
 const JOB_TTL_MS = (parseFloat(process.env.JOB_TTL_HOURS) || 3) * 60 * 60 * 1000;
