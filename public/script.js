@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusDiv.innerHTML = `
                     <p>Your download is ready!</p>
                     <a href="${data.downloadUrl}" download>Download File</a>
-                    <p><b>For iOS users:</b> Tap the download link. Once the "Do you want to download" opens tap the "Download" button to download the Video/Audio file to your device.</p>
                 `;
                 statusDiv.style.display = 'block';
             } else {
