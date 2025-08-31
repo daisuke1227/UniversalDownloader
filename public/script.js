@@ -93,12 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await resp.json();
 
             if (data.downloadUrl) {
-                // Create a temporary link to trigger the download
-                const link = document.createElement('a');
-                link.href = data.downloadUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                statusDiv.innerHTML = `
+                    <p>Your download is ready!</p>
+                    <a href="${data.downloadUrl}" download>Download File</a>
+                    <p><b>For iOS users:</b> Tap the download link. Once the "Do you want to download" opens tap the "Download" button to download the Video/Audio file to your device.</p>
+                `;
+                statusDiv.style.display = 'block';
             } else {
                 throw new Error('Server did not provide a download link.');
             }
