@@ -31,7 +31,9 @@ npm install
 
 7. Extract cookies from a site like Youtube Learn how to do that here: https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies
 
-8. Now run the app.js file
+8. copy the "cookies.txt" file to the root directory of UniversalDownloader
+
+9. Now run the app.js file
 ```console
 node app.js
 ```
